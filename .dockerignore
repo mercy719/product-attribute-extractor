@@ -123,3 +123,18 @@ Thumbs.db
 *.tmp
 *.bak
 .*.swp
+
+# Claude
+.claude/
+
+# Development files
+deploy.sh
+start.sh
+serve_production.py
+
+# Documentation
+*.md
+!README.md
+
+# Git
+.git
