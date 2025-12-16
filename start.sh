@@ -40,4 +40,4 @@ fi
 
 # 启动应用
 echo "启动应用..."
-exec gunicorn app:app --bind 0.0.0.0:$PORT --timeout 300 --workers 2
+exec gunicorn api_app:app --bind 0.0.0.0:$PORT --timeout 300 --workers 2

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file, send_from_directory
 from flask_cors import CORS
 import pandas as pd
 import os
@@ -330,9 +330,9 @@ def process_file(file_path, text_columns, attributes_to_extract, api_key, provid
 
 # API 路由
 
-@app.route('/', methods=['GET'])
-def root_index():
-    """根路径：返回API运行状态及常用端点提示"""
+@app.route('/api', methods=['GET'])
+def api_info():
+    """API信息：返回API运行状态及常用端点提示"""
     return jsonify({
         'status': 'ok',
         'message': 'Product Attributes Enhancer API is running',
@@ -526,6 +526,17 @@ def health_check():
         'message': '产品属性增强工具API运行正常',
         'version': '2.0'
     })
+
+# 前端路由 - 必须放在所有API路由之后
+@app.route('/')
+def index():
+    """前端主页"""
+    return send_from_directory('static', 'index.html')
+
+@app.route('/<path:path>')
+def serve_static(path):
+    """静态文件服务"""
+    return send_from_directory('static', path)
 
 if __name__ == '__main__':
     # 生产环境配置
